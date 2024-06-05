@@ -3720,7 +3720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7172674950012598633, guid: 37378910db1903b49b35604b81848c5e, type: 3}
       propertyPath: m_Text
-      value: Server
+      value: "\uC11C\uBC84"
       objectReference: {fileID: 0}
     - target: {fileID: 7172674950483831473, guid: 37378910db1903b49b35604b81848c5e, type: 3}
       propertyPath: m_Enabled
