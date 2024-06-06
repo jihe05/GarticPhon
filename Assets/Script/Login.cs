@@ -102,11 +102,9 @@ public class Login : MonoBehaviour
     //사용자이름이 변경되었을때
     public void SetUIError(string msg)
     {
-
         Text_Error.text = msg;
         Text_Error.gameObject.SetActive(true);
 
-    
     }
 
     public void Changed_ToggleButton(string username)
@@ -123,7 +121,9 @@ public class Login : MonoBehaviour
         if (netmanager == null)
             return;
 
+       
         netmanager.StartHost();
+        waitpanel.Instance.SetLocalPlayername(InputuserName.text);
         this.gameObject.SetActive(false);
     }
 
@@ -132,7 +132,9 @@ public class Login : MonoBehaviour
         if (netmanager == null)
             return;
 
+        
         netmanager.StartClient();
+        waitpanel.Instance.SendernameToServer(InputuserName.text);
         this.gameObject.SetActive(false);
 
     }

@@ -31,11 +31,7 @@ public partial class NetworkingAuthenticator : NetworkAuthenticator
 
     #region ServerSide
     [UnityEngine.RuntimeInitializeOnLoadMethod]
-    static void ResetStatics()
-    { 
-      //정적변수를 초기화 하는 메서드
-
-    }
+    
 
     public override void OnStartServer()
     {
@@ -48,53 +44,51 @@ public partial class NetworkingAuthenticator : NetworkAuthenticator
         //서버중지 시 인증 응답 핸들러 들록 해제 
         NetworkServer.UnregisterHandler<AuthResMsg>();
     }
-    public override void OnServerAuthenticate(NetworkConnectionToClient conn)
-    {
-    }
+
 
     public void OnAuthRequestMessage(NetworkConnectionToClient conn, AuthReqMsg msg)
     {
-        //클라이언트로부터 인증 요청 메세지가 도착했을떄 호출
+        // 클라이언트로부터 인증 요청 메시지가 도착했을 때 호출
+        Debug.Log($"인증 요청: {msg.authuserName}");
 
-        Debug.Log($"인증요청 : {msg.authuserName}");
-
-        //이미 인증 대기 중인 연결이면 처리 중지
+        // 이미 인증 대기 중인 연결이면 처리 중지
         if (_connectionsPendingDisconnect.Contains(conn)) return;
 
-        //외부 서버나 DB를 호출하여 인증 확인 (간단한 예제는 플레이어 이름 중복 검사)
+        // 외부 서버나 DB를 호출하여 인증 확인 (간단한 예제는 플레이어 이름 중복 검사)
         if (!_playerNames.Contains(msg.authuserName))
         {
+            // 중복되지 않은 경우
             _playerNames.Add(msg.authuserName);
 
-            //인증데이터 설정
+            // 인증 데이터 설정
             conn.authenticationData = msg.authuserName;
 
-            //성공 응담 메세지 생성및 전송
+            // 성공 응답 메시지 생성 및 전송
             AuthResMsg authReqMsg = new AuthResMsg
             {
                 code = 100,
-                msg = "Auth Success"
-
+                msg = "인증성공"
             };
             conn.Send(authReqMsg);
-            ServerReject(conn);
+           ServerAccept(conn);
         }
         else
-        { 
-          _connectionsPendingDisconnect.Add(conn);
+        {
+            // 중복된 경우
+            _connectionsPendingDisconnect.Add(conn);
 
+            // 실패 응답 메시지 생성 및 전송
             AuthResMsg authResMsg = new AuthResMsg
             {
                 code = 200,
-                msg = "이름이 이미 있습니다! 다시 시도하세요"
-
+                msg = "이미 사용 중인 이름입니다. 다른 이름을 선택해주세요."
             };
             conn.Send(authResMsg);
             conn.isAuthenticated = false;
 
+            // 지연 후 연결 해제 처리하는 코루틴
             StartCoroutine(DelayedDisconnect(conn, 1.0f));
         }
-        
     }
 
     IEnumerator DelayedDisconnect(NetworkConnectionToClient conn, float waitTime)

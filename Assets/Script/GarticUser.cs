@@ -26,7 +26,7 @@ public class GarticUser : NetworkBehaviour
         if (objStartUI != null)
         {
             //Start스크립트의 컴포넌트를 가져와 
-            var StartPanel = objStartUI.GetComponent<Start>();
+            var StartPanel = objStartUI.GetComponent<waitpanel>();
             if (StartPanel != null)
             {
                 //플레이어의 이름을 UI의 설정
