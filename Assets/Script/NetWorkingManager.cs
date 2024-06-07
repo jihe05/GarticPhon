@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Unity.VisualScripting;
 
 public class NetWorkingManager : NetworkManager
 {
@@ -19,7 +20,11 @@ public class NetWorkingManager : NetworkManager
     {
         if (waitpanel != null && waitpanel._connectedNameDic.ContainsKey(conn))
         {
+            var disconnectedName = waitpanel._connectedNameDic[conn];
+            
             waitpanel._connectedNameDic.Remove(conn);
+            waitpanel._hostPlayerName = string.Empty; // 클라이언트 이름 제거
+
             // 연결이 끊긴 클라이언트의 오브젝트 제거 등 필요한 처리 추가
         }
 
@@ -36,6 +41,4 @@ public class NetWorkingManager : NetworkManager
             _login.SetUIclient(); // 연결이 끊겼을 때의 UI
         }
     }
-
-
 }

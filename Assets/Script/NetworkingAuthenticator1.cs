@@ -38,6 +38,7 @@ public partial class NetworkingAuthenticator
     //서버로부터 인증 응답 메세지를 받았을 때 호출
     public void OnAuthResponseMessage(AuthResMsg msg)
     {
+        Debug.Log(msg.code);
         if (msg.code == 100)//인증성공
         {
             Debug.Log($"소환 :{msg.code}{msg.msg}");

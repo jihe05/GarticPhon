@@ -47,11 +47,18 @@ public partial class NetworkingAuthenticator : NetworkAuthenticator
 
     public void OnAuthRequestMessage(NetworkConnectionToClient conn, AuthReqMsg msg)
     {
+        //Debug.Log(conn.identity.netId);
         // 클라이언트로부터 인증 요청 메시지가 도착했을 때 호출
         Debug.Log($"인증 요청: {msg.authuserName}");
 
         // 이미 인증 대기 중인 연결이면 처리 중지
         if (_connectionsPendingDisconnect.Contains(conn)) return;
+
+        //Debug.Log(conn.identity.netId);
+        foreach (var name in _playerNames)
+        {
+            Debug.Log(name);
+        }
 
         // 외부 서버나 DB를 호출하여 인증 확인 (간단한 예제는 플레이어 이름 중복 검사)
         if (!_playerNames.Contains(msg.authuserName))

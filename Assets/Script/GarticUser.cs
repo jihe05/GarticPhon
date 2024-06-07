@@ -35,9 +35,5 @@ public class GarticUser : NetworkBehaviour
         }
 
     }
-    [Command(requiresAuthority = false)]
-    public void CodSetplayerName(string newName)
-    { 
-      PlayerName=newName;
-    }
+    
 }

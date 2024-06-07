@@ -13,7 +13,7 @@ public class Login : MonoBehaviour
     [SerializeField] internal Text Text_Error;
 
     [SerializeField] NetworkManager netmanager;
-    public Login Instance { get; private set; }
+    public static Login Instance { get; private set; }
 
     private string originNetAddre;
 
@@ -64,7 +64,7 @@ public class Login : MonoBehaviour
 
     private void CheckNetwork()
     {
-        //네트워크 주소가 비어있으면 우너래 주소로 설정
+        //네트워크 주소가 비어있으면 원래 주소로 설정
         if (string.IsNullOrWhiteSpace(NetworkManager.singleton.networkAddress))
         {
             NetworkManager.singleton.networkAddress = originNetAddre;
@@ -88,6 +88,7 @@ public class Login : MonoBehaviour
         InputuserName.text = string.Empty;
         //인풋필드 활성화
         InputuserName.ActivateInputField();
+
 
     }
 
@@ -122,20 +123,15 @@ public class Login : MonoBehaviour
             return;
 
         netmanager.StartHost();
-        waitpanel.Instance.SetLocalPlayername(InputuserName.text);
         this.gameObject.SetActive(false);
     }
-
+    
     public void OnClick_StartClient()
     {
         if (netmanager == null)
             return;
 
         netmanager.StartClient();
-        waitpanel.Instance.SendernameToServer(InputuserName.text);
         this.gameObject.SetActive(false);
-
     }
-
-
 }
