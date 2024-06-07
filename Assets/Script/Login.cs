@@ -121,7 +121,6 @@ public class Login : MonoBehaviour
         if (netmanager == null)
             return;
 
-       
         netmanager.StartHost();
         waitpanel.Instance.SetLocalPlayername(InputuserName.text);
         this.gameObject.SetActive(false);
@@ -132,7 +131,6 @@ public class Login : MonoBehaviour
         if (netmanager == null)
             return;
 
-        
         netmanager.StartClient();
         waitpanel.Instance.SendernameToServer(InputuserName.text);
         this.gameObject.SetActive(false);

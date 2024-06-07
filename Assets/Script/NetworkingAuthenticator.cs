@@ -32,7 +32,6 @@ public partial class NetworkingAuthenticator : NetworkAuthenticator
     #region ServerSide
     [UnityEngine.RuntimeInitializeOnLoadMethod]
     
-
     public override void OnStartServer()
     {
         //클라로부터 인증처리를 위한 핸들러 연결

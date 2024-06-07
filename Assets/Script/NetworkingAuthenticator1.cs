@@ -20,7 +20,7 @@ public partial class NetworkingAuthenticator
     //클라이언트가 시작될 때 호출
     public override void OnStartClient()
     {
-        NetworkClient.RegisterHandler<AuthResMsg>(OnAuthResponseMessage, false);ㅁ
+        NetworkClient.RegisterHandler<AuthResMsg>(OnAuthResponseMessage, false);
     }
 
     //클라이언트가 중지 될때 호출
