@@ -30,7 +30,7 @@ public class GarticUser : NetworkBehaviour
             if (StartPanel != null)
             {
                 //플레이어의 이름을 UI의 설정
-                StartPanel.SetLocalPlayername(PlayerName);
+                StartPanel.SetLocalPlayerName(PlayerName);
             }
         }
 

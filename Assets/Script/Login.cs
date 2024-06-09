@@ -11,8 +11,12 @@ public class Login : MonoBehaviour
     [SerializeField] internal Button Button_Client;
 
     [SerializeField] internal Text Text_Error;
+ 
 
     [SerializeField] NetworkManager netmanager;
+
+    public GameObject falseObjText;
+    public GameObject falseObjDrow;
     public static Login Instance { get; private set; }
 
     private string originNetAddre;
@@ -124,6 +128,8 @@ public class Login : MonoBehaviour
 
         netmanager.StartHost();
         this.gameObject.SetActive(false);
+        falseObjText.SetActive(false);
+        falseObjDrow.SetActive(false);
     }
     
     public void OnClick_StartClient()
@@ -133,5 +139,9 @@ public class Login : MonoBehaviour
 
         netmanager.StartClient();
         this.gameObject.SetActive(false);
+        falseObjText.SetActive(false);
+        falseObjDrow.SetActive(false);
+
+
     }
 }

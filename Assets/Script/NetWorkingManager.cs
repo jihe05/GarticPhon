@@ -21,9 +21,9 @@ public class NetWorkingManager : NetworkManager
         if (waitpanel != null && waitpanel._connectedNameDic.ContainsKey(conn))
         {
             var disconnectedName = waitpanel._connectedNameDic[conn];
-            
             waitpanel._connectedNameDic.Remove(conn);
             waitpanel._hostPlayerName = string.Empty; // 클라이언트 이름 제거
+            
 
             // 연결이 끊긴 클라이언트의 오브젝트 제거 등 필요한 처리 추가
         }
@@ -31,7 +31,7 @@ public class NetWorkingManager : NetworkManager
         base.OnServerDisconnect(conn);
     }
 
-    // 클라이언트가 연결이 끊겼을 때 호출
+    // 클라이언트가 연결이 끊겼을 때UI 호출
     public override void OnClientDisconnect()
     {
         base.OnClientDisconnect();
