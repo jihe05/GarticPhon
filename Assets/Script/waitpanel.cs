@@ -80,7 +80,13 @@ public class waitpanel : NetworkBehaviour
         gameObject.SetActive(true);
         _connectedNameDic.Clear();
         SenderNameToServer((string)connectionToClient.authenticationData);
-        Client_btn.SetActive(false);
+        if (isClient)
+        {
+            Debug.Log("클라이언트");
+            //클라이언트
+            Client_btn.SetActive(false);
+        }
+        
 
 
     }
@@ -91,7 +97,8 @@ public class waitpanel : NetworkBehaviour
         base.OnStartServer();
         gameObject.SetActive(true);
         _connectedNameDic.Clear();
-        
+       
+
     }
 
     // 나가기

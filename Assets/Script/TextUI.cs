@@ -19,32 +19,6 @@ public class TextUI : NetworkBehaviour
     private static HashSet<NetworkConnectionToClient> playersWhoClickedButton = new HashSet<NetworkConnectionToClient>();
     private static int totalPlayers;
 
-    void OnEnable()
-    {
-        NetworkManager.singleton.OnServerAddPlayer += OnServerAddPlayer;
-        NetworkManager.singleton.OnServerDisconnect += OnServerDisconnect;
-
-
-    }
-
-    void OnDisable()
-    {
-        NetworkManager.singleton.OnServerAddPlayer -= OnServerAddPlayer;
-        NetworkManager.singleton.OnServerDisconnect -= OnServerDisconnect;
-    }
-
-    void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {
-        totalPlayers = NetworkServer.connections.Count;
-        Debug.Log("Player connected. Total players: " + totalPlayers);
-    }
-
-    void OnServerDisconnect(NetworkConnectionToClient conn)
-    {
-        totalPlayers = NetworkServer.connections.Count;
-        Debug.Log("Player disconnected. Total players: " + totalPlayers);
-    }
-
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -127,12 +101,13 @@ public class TextUI : NetworkBehaviour
     }
 
     // 클라이언트에서 특정 오브젝트 비활성화
-    [ClientRpc]
+    //[ClientRpc]
     private void RpcDisableObject()
     {
         if (drowingObj != null)
         {
-            drowingObj.SetActive(false); // 오브젝트 비활성화
+            drowingObj.SetActive(true); // 오브젝트 활성화
+            this.gameObject.SetActive(false);//현베 오브젝트 비활성화
             Debug.Log("Target object disabled");
         }
         else
